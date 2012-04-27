@@ -1,9 +1,5 @@
-An RSS plugin for the Deluge torrent client with regular expression matching and targeted
-directories.
+An RSS plugin for the Deluge torrent client with regular expression matching and targeted directories.
 
-This evolved out of code for a utility I wrote that did the same thing w/ rtorrent over
-XML-RPC. I switched to Deluge for my torrenting needs and I figured this would be a 
-good introduction to writing Deluge plugins.
+This evolved out of code for a utility I wrote that did the same thing w/ rtorrent over XML-RPC. I switched to Deluge for my torrenting needs and I figured this would be a good introduction to writing Deluge plugins.
 
 Depends on feedparser (http://code.google.com/p/feedparser/)
-

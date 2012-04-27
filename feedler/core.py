@@ -100,7 +100,6 @@ class Core(CorePluginBase):
                     matches += 1
 
             if matches == len(feed['rules']):
-
                 hash = hashlib.md5(entry.title + entry.published + rss.href).hexdigest()
                 if hash not in self.history.keys():
                     log.debug("Found %s torrent!! Adding to history as %s..." % (entry.title, hash))
