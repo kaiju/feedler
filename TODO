@@ -1,0 +1,4 @@
+* Error handling
+* Make one HTTP request for feed rules with the same URL
+* Add torrent download states to the history file (in progress, completed, etc)
+* GTK & Javascript Config User Interfaces
