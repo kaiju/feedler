@@ -94,17 +94,34 @@ class Core(CorePluginBase):
 
         for entry in rss.entries:
 
+            groups = []
             matches = 0
+
             for rule in feed['rules']:
-                if re.search(rule[1], entry[rule[0]]):
+                match = re.search(rule[1], entry[rule[0]])
+                if match:
+                    groups.extend(list(match.groups()))
                     matches += 1
 
             if matches == len(feed['rules']):
                 hash = hashlib.md5(entry.title + entry.published + rss.href).hexdigest()
                 if hash not in self.history.keys():
                     log.debug("Found %s torrent!! Adding to history as %s..." % (entry.title, hash))
+
+                    target_directory = feed['target_directory']
+
+                    for marker in re.findall('\$\d', feed['target_directory']):
+                        index = int(marker.lstrip('$'))
+                        if len(groups) >= index:
+                            replacement = groups[index]
+                        else:
+                            replacement = ''
+                        target_directory = target_directory.replace(marker, replacement)
+
+                    # todo, stuff torrent status in here and check it
                     self.history[hash] = entry.title
-                    component.get("Core").add_torrent_url(entry.link, { 'move_completed': True, 'move_completed_path': feed['target_directory'] })
+
+                    component.get("Core").add_torrent_url(entry.link, { 'move_completed': True, 'move_completed_path': target_directory })
 
         pass
 
