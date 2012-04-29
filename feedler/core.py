@@ -113,14 +113,15 @@ class Core(CorePluginBase):
                     for marker in re.findall('\$\d', feed['target_directory']):
                         index = int(marker.lstrip('$'))
                         if len(groups) >= index:
-                            replacement = groups[index]
+                            replacement = groups[(index-1)]
                         else:
                             replacement = ''
                         target_directory = target_directory.replace(marker, replacement)
 
+                    log.debug("Target Directory: %s" % target_directory)
+
                     # todo, stuff torrent status in here and check it
                     self.history[hash] = entry.title
-
                     component.get("Core").add_torrent_url(entry.link, { 'move_completed': True, 'move_completed_path': target_directory })
 
         pass
